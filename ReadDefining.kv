@@ -1,0 +1,98 @@
+WindowManager:
+    EntryLayout:
+    ResultLayout:
+
+<EntryLayout>:
+    name: "enter"
+    GridLayout:
+        cols: 1
+        TextInput:
+            id: input
+            hint_text: "Enter here"
+        AnchorLayout:
+            size_hint: 1, .1
+            Button:
+                size_hint: .1, .8
+                text: "Submit"
+                pos_hint: {"x": .5}
+                on_press:
+                    root.manager.TEXT_GLOBAL = input.text
+                    root.manager.SPEED_GLOBAL = slider.value
+                    root.manager.transition.direction = "up"
+                    root.manager.cancel()
+                on_release:
+                    if input.text: root.manager.word_by_word()
+                    else: input.hint_text="ENTER HERE"
+                    if input.text: root.manager.current = "result"
+        Slider:
+            id: slider
+            min: 60
+            max: 1000
+            step: 10
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: "35dp"
+        AnchorLayout:
+            size_hint: 1, None
+            height: "40dp"
+            Label:
+                text: str(slider.value)
+
+<ResultLayout>:
+    name: "result"
+    GridLayout:
+        cols: 1
+        AnchorLayout:
+            size_hint: 1, None
+            height: "40dp"
+            Label:
+                text: str(slider2.value)
+        Slider:
+            id: slider2
+            min: 60
+            max: 1000
+            value: root.manager.SPEED_GLOBAL
+            step: 10
+            orientation: 'horizontal'
+            size_hint: 1, None
+            height: "35dp"
+            on_touch_up:
+                root.manager.SPEED_GLOBAL = slider2.value
+                root.manager.cont()
+    Label:
+        text: root.manager.WORD_GLOBAL
+        font_size: "48sp"
+    FloatLayout:
+        id: float_root
+        size_hint: (None, None)
+        btn_size: (70, 70)
+        size: (70, 70)
+        pos_hint: {'center_x': .5}
+        Button:
+            text: 'Back'
+            markup: True
+            font_size: 24
+            size_hint: (None, None)
+            size: float_root.btn_size
+            pos_hint: {'x': -4, 'y': 1.2}
+            background_normal: ''
+            background_color: (0, 0, 0, 0)
+            on_press:
+                root.manager.cancel()
+            on_release:
+                root.manager.transition.direction = "down"
+                root.manager.current = "enter"
+        Button:
+            text: root.manager.START_GLOBAL
+            markup: True
+            font_size: 24
+            size_hint: (None, None)
+            size: (90, 70)
+            pos_hint: {'x': 4, 'y': 1.2}
+            background_normal: ''
+            background_color: (0, 0, 0, 0)
+            on_press:
+                slider2.value = root.manager.SPEED_GLOBAL
+            on_release:
+                root.manager.word_by_word()
+                root.manager.START_GLOBAL = ''
