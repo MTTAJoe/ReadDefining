@@ -3,8 +3,6 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import StringProperty, NumericProperty, ListProperty
 from kivy.clock import Clock
 import time
-import os, sys
-from kivy.resources import resource_add_path, resource_find
 from kivy.config import Config
 
 
@@ -28,7 +26,7 @@ class WindowManager(ScreenManager):
 	timesPressed = 0
 
 	def __init__(self, **kwargs):
-		super().__init__()
+		super(WindowManager, self).__init__(**kwargs)
 		self.event = None
 
 	def word_by_word(self):
@@ -47,7 +45,7 @@ class WindowManager(ScreenManager):
 		self.event = Clock.schedule_interval(self.update, t)
 		self.event()
 
-	def update(self, *args):
+	def update(self):
 		try:
 			self.WORD_GLOBAL = self.lst[self.x]
 			self.x += 1
@@ -82,6 +80,4 @@ def word_by_word():
 
 
 if __name__ == '__main__':
-	if hasattr(sys, '_MEIPASS'):
-		resource_add_path(os.path.join(sys._MEIPASS))
 	ReadDefiningApp().run()
