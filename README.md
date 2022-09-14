@@ -3,7 +3,7 @@ An application that allows you to read a block of text at a user's prefered spee
 You could say it re-defines the way you read.
 
 To install, download setup.exe
-A uninstall .exe will be installed along side the application
+An uninstall .exe will be installed along side the application
 
 The code has not been signed, so upon installation it will raise anti-virus software.
 
