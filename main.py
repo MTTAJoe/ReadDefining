@@ -35,6 +35,13 @@ class WindowManager(ScreenManager):
 		self.x = 0
 		t = 60/int(self.SPEED_GLOBAL)
 		self.lst = self.TEXT_GLOBAL.split()
+		self.lst.insert(0, self.lst[0])
+		if self.SPEED_GLOBAL > 120:
+			self.lst.insert(0, self.lst[0])
+		if self.SPEED_GLOBAL > 180:
+			self.lst.insert(0, self.lst[0])
+		if self.SPEED_GLOBAL >240:
+			self.lst.insert(0, self.lst[0])
 		self.WORD_GLOBAL = self.lst[0]
 		self.event = Clock.schedule_interval(self.update, t)
 		self.event()
