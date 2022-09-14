@@ -45,7 +45,7 @@ class WindowManager(ScreenManager):
 		self.event = Clock.schedule_interval(self.update, t)
 		self.event()
 
-	def update(self):
+	def update(self, *args):
 		try:
 			self.WORD_GLOBAL = self.lst[self.x]
 			self.x += 1
